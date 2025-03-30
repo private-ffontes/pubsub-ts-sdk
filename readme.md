@@ -120,6 +120,34 @@ SDK_TIME_TO_DELIVERY_IN_SECONDS=60
 REDIS_URL=redis://localhost:6379
 ```
 
+## Docker Compose Configuration
+
+The application is containerized using Docker Compose with the following services:
+
+### App Service
+- Built from local Dockerfile
+- Runs 6 replicas for horizontal scaling
+- Connects to Redis using environment variables
+- Exposed on port 3000 (internally)
+
+### Redis Service
+- Uses Redis Alpine image
+- Persists data using a named volume
+- Exposed on port 6379
+- Provides distributed storage for the SDK
+
+### Nginx Service
+- Load balancer for the app instances
+- Exposes the application on port 80
+- Uses custom nginx configuration
+- Distributes traffic across app replicas
+
+To start all services:
+
+```bash
+docker-compose up
+```
+
 ## Unit tests
 
 Unit tests available by jest on the following script
