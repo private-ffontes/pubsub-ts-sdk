@@ -14,7 +14,7 @@ services:
     networks:
       - app_network
     ports:
-      - "3000"  # Expose port 3000 internally
+      - "3000"
 
   redis:
     image: redis:alpine
