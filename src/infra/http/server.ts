@@ -19,6 +19,11 @@ export default async function bootstrap() {
   app.register(httpRedisRouter, { prefix: "/api/redis-sdk" });
   app.register(wsRedisRouter, { prefix: "/ws/redis-sdk" });
 
+  app.setErrorHandler((error, _, reply) => {
+    console.error("Error trhough the app", error);
+    reply.status(500).send({ error: "Internal Server Error" });
+  });
+
   app.listen({ port: 3000, host: "0.0.0.0" }, (err, address) => {
     if (err) {
       app.log.error(err);
