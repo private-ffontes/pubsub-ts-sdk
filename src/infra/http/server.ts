@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import FasftifyWebsocket from "@fastify/websocket";
+import FastifyCors from "@fastify/cors";
 import { httpNativeRouter } from "./routers/native.router";
 import { wsNativeRouter } from "../ws/routers/native.router";
 import { httpRedisRouter } from "./routers/redis.router";
@@ -7,6 +8,10 @@ import { wsRedisRouter } from "../ws/routers/redis.router";
 
 export default async function bootstrap() {
   const app = Fastify({ logger: true });
+
+  app.register(FastifyCors, {
+    origin: "*",
+  });
 
   app.register(FasftifyWebsocket);
   app.register(httpNativeRouter, { prefix: "/api/native-sdk" });
