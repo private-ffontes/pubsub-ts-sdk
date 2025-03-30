@@ -1,0 +1,44 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 6
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - SDK_TIME_TO_DELIVERY_IN_SECONDS=60
+    depends_on:
+      - redis
+    networks:
+      - app_network
+    ports:
+      - "3000"  # Expose port 3000 internally
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80" # Expose NGINX on port 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro # Mount custom NGINX config
+    depends_on:
+      - app
+    networks:
+      - app_network
+
+volumes:
+  redis_data:
+
+networks:
+  app_network:
+    driver: bridge

@@ -1,0 +1,32 @@
+{
+  "name": "events-sdk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "ts-node-dev src/infra/http/main.ts",
+    "start": "node dist/infra/http/main.js",
+    "test:unit": "jest --config jest.unit.config.json --coverage",
+    "build": "tsc --noEmit && swc src -d dist"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fastify/websocket": "^11.0.2",
+    "@types/jest": "^29.5.14",
+    "fastify": "^5.2.2",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.18.0",
+    "jest": "^29.7.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.2",
+    "@swc/core": "^1.5.29",
+    "@swc/jest": "^0.2.36"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "baseUrl": "./",
+    "target": "es2022",
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true
+    },
+    "paths": {
+      "@domain/*": ["./src/domain/*"],
+      "@commons/*": ["./src/commons/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"],
+      "@application/*": ["./src/application/*"],
+      "@mocks/*": ["./__mocks__/*"],
+      "@fixtures/*": ["./__fixtures__/*"]
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}
