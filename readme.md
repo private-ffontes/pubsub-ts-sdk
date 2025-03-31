@@ -13,11 +13,11 @@ A scalable pub/sub handling SDK built with Fastify that supports both in-memory 
 ## Features
 
 - Multiple transport layers:
-  - HTTP REST API
-  - WebSocket real-time connections
+  - HTTP REST API (To post and list messages)
+  - WebSocket real-time connections (To subscribe to specific topic)
 - Storage implementations:
   - Native (in-memory) for single instance usage
-  - Redis for distributed systems
+  - Redis 
 - Built with Fastify framework
 - TypeScript support
 - Environment-based configuration
@@ -78,14 +78,14 @@ WS /ws/redis-sdk/topics/subscribe?topic=your-topic
 
 ```typescript
 // Publish to Native SDK
-await fetch('http://localhost:3000/api/native-sdk/topics/my-topic', {
+await fetch('http://localhost:80/api/native-sdk/topics/my-topic', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ name: 'Hello World' })
 });
 
 // Publish to Redis SDK
-await fetch('http://localhost:3000/api/redis-sdk/topics/my-topic', {
+await fetch('http://localhost:80/api/redis-sdk/topics/my-topic', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({ name: 'Hello World' })
@@ -96,13 +96,13 @@ await fetch('http://localhost:3000/api/redis-sdk/topics/my-topic', {
 
 ```typescript
 // Subscribe using Native SDK
-const ws = new WebSocket('ws://localhost:3000/ws/native-sdk/topics/subscribe?topic=my-topic');
+const ws = new WebSocket('ws://localhost:80/ws/native-sdk/topics/subscribe?topic=my-topic');
 ws.onmessage = (event) => {
   console.log('Received:', JSON.parse(event.data));
 };
 
 // Subscribe using Redis SDK
-const ws = new WebSocket('ws://localhost:3000/ws/redis-sdk/topics/subscribe?topic=my-topic');
+const ws = new WebSocket('ws://localhost:80/ws/redis-sdk/topics/subscribe?topic=my-topic');
 ws.onmessage = (event) => {
   console.log('Received:', JSON.parse(event.data));
 };
@@ -128,7 +128,7 @@ The application is containerized using Docker Compose with the following service
 - Built from local Dockerfile
 - Runs 6 replicas for horizontal scaling
 - Connects to Redis using environment variables
-- Exposed on port 3000 (internally)
+- Exposed on port 80 (internally)
 
 ### Redis Service
 - Uses Redis Alpine image
@@ -155,3 +155,7 @@ Unit tests available by jest on the following script
 ```bash
 npm run test:unit
 ```
+
+## Proof of work
+
+![Socket Connection Example](./socket.png)
